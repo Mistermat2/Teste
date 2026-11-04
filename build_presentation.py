@@ -200,6 +200,7 @@ CONTACT = {
     "email": "marie@latinexclusive.com",
     "country": "BRA ",
     "phone": "+55 21 98393-0391",
+    "photo": "assets/marie-emma.png",
 }
 p = doc[-1]
 erase_text(p, [(30, 187, 215, 215), (353, 137, 600, 149), (353, 196, 600, 208)])
@@ -208,6 +209,10 @@ RIGHT = 210.0
 for s_, f_, sz, c_, y_ in [(CONTACT["name"], "osb", 12.27, WHITE, 198.6),
                            (CONTACT["role"], "osl", 10.23, GREY, 213.0)]:
     text(p, RIGHT - FONTS_OBJ[f_].text_length(s_, sz), y_, s_, f_, sz, c_)
+# round portrait above the name, right-aligned with it
+pr = fitz.Rect(RIGHT - 78, 98, RIGHT, 176)
+p.draw_circle(pr.tl + (39, 39), 40.2, color=None, fill=(1, 1, 1))
+p.insert_image(pr, filename=CONTACT["photo"])
 text(p, 355.0, 147.0, CONTACT["email"], "osl", 10.23, NAVY)
 x = text(p, 355.0, 206.1, CONTACT["country"], "oss", 10.23, NAVY)
 text(p, x, 206.1, CONTACT["phone"], "osl", 10.23, NAVY)
