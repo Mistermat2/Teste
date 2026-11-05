@@ -131,26 +131,29 @@ if BATHROOMS is None and AREA is None:
     p.add_redact_annot(box + (-1, -1, 1, 1), fill=False)
     p.apply_redactions(images=fitz.PDF_REDACT_IMAGE_NONE,
                        graphics=fitz.PDF_REDACT_LINE_ART_REMOVE_IF_COVERED)
+    # compact box keeps the full box's right edge (right-aligned)
+    dx = box.x1 - 529.9
+    off = fitz.Point(dx, 0)
     sh = p.new_shape()
-    sh.draw_rect(fitz.Rect(432.1, 303.1, 529.9, 359.8))
+    sh.draw_rect(fitz.Rect(432.1 + dx, 303.1, box.x1, 359.8))
     sh.finish(fill=box_fill, color=None)
     for dr in icon_paths:
         for it in dr["items"]:
             if it[0] == "l":
-                sh.draw_line(it[1], it[2])
+                sh.draw_line(it[1] + off, it[2] + off)
             elif it[0] == "c":
-                sh.draw_bezier(it[1], it[2], it[3], it[4])
+                sh.draw_bezier(it[1] + off, it[2] + off, it[3] + off, it[4] + off)
             elif it[0] == "re":
-                sh.draw_rect(it[1])
+                sh.draw_rect(fitz.Rect(it[1]) + (dx, 0, dx, 0))
             elif it[0] == "qu":
-                sh.draw_quad(it[1])
+                sh.draw_quad(fitz.Quad(*(pt + off for pt in it[1])))
         sh.finish(fill=dr["fill"], color=None, even_odd=dr.get("even_odd", False),
                   closePath=dr.get("closePath", False))
     sh.commit()
     add_fonts(p)
     label = [(BEDROOMS + " ", "osb"), ("bedrooms", "osr")]
     w = sum(FONTS_OBJ[f].text_length(t, 8) for t, f in label)
-    x = 481.0 - w / 2
+    x = 481.0 + dx - w / 2
     for t, f in label:
         x = text(p, x, 348.6, t, f, 8, WHITE)
 else:
