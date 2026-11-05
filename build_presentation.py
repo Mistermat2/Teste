@@ -26,10 +26,10 @@ DISTRICT = "Ipanema"
 BEDROOMS, BATHROOMS, AREA = "3", "2", "200"
 
 DESCRIPTION = (
-    "Located in Ipanema, this fully renovated 200 m² apartment has a bright "
-    "living room with mountain views, an integrated kitchen and three bedrooms. "
-    "The building is 70 m from the metro, 280 m from the beach and 450 m from "
-    "the Lagoa."
+    "Located on Rua Visconde de Piraj\u00e1, facing Pra\u00e7a Nossa Senhora da Paz in "
+    "Ipanema, this fully renovated 200 m\u00b2 apartment has a bright living room "
+    "with mountain views, an integrated kitchen and three bedrooms. The building "
+    "is 70 m from the metro, 280 m from the beach and 450 m from the Lagoa."
 )
 FEATURES = [
     "Fully renovated apartment",
@@ -42,6 +42,7 @@ FEATURES = [
     "Virtual concierge and automated security system",
     "Part-time doorman",
     "1 covered parking space",
+    "Available from December 26",
 ]
 
 COVER_PHOTO = "01"      # cover + main photo (same image object in the template)
