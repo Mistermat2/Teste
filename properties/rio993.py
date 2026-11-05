@@ -4,7 +4,7 @@ TITLE = "Triplex penthouse in Ipanema"
 DISTRICT = "Ipanema"
 BEDROOMS, BATHROOMS, AREA = "3", "3", "250"
 TERMS = [("Available from", "February 16"),
-         ("Monthly rent", "R$ 40,000, all inclusive")]
+         ("Monthly rent", "R$ 40,000, taxes included")]
 TERMS_NOTE = "Electricity not included"
 
 DESCRIPTION = (
