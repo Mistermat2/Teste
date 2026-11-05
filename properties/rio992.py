@@ -1,4 +1,4 @@
-# Rio992 - Copacabana, Av. Atlantica 2710 (photos: our own shoot, treated)
+# Rio992 - Copacabana, Av. Atlantica 2710 (photos: our own shoot, AI-edited by the team)
 CODE = "Rio992"
 TITLE = "Beachfront apartment in Copacabana"
 DISTRICT = "Copacabana"
@@ -29,10 +29,11 @@ FEATURES = [
 COVER_PHOTO = "02"
 FEATURE_PHOTO = "01"
 GALLERY = [
-    (4, {38: "06", 39: "03", 40: "15"}),
+    (4, {38: "06", 39: "03", 40: "04"}),
+    (3, {32: "15", 33: "16", 31: "07"}),
     (5, {45: "12", 46: "13", 47: "05", 48: "08"}),
-    (4, {38: "14", 39: "09", 40: "10"}),
-    (3, {32: "07", 33: "16", 31: "11"}),
+    (6, {53: "09", 54: "10", 55: "11", 56: "14"}),
 ]
-# 04 left out: photographer reflected in the dining-room mirror; 17 left out: cluttered
-FOCUS = {"06": 0.5, "14": 0.62, "11": 0.3}
+# photos: AI-edited set supplied by the team (14 = our own treated version);
+# 17 (service area) left out: personal items in view
+FOCUS = {"06": 0.5, "07": 0.55}
