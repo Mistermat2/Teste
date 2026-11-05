@@ -2,7 +2,7 @@
 CODE = "Rio992"
 TITLE = "Beachfront apartment in Copacabana"
 DISTRICT = "Copacabana"
-BEDROOMS, BATHROOMS, AREA = "3", "X", "XXX"
+BEDROOMS, BATHROOMS, AREA = "3", None, None   # bathrooms / m² unknown: omitted
 TERMS = []
 TERMS_NOTE = ""
 

@@ -114,8 +114,47 @@ p = doc[1]
 img = [i[0] for i in p.get_images() if i[2] == 1280][0]
 if doc.extract_image(img)["width"] == 1280:   # not already replaced via page 1
     replace(p, doc, img, COVER_PHOTO, max_w=2000)
-erase_text(p, [(600, 182, 715, 195), (600, 209, 715, 221),
-               (543, 341, 590, 350), (639, 341, 653, 350)])
+erase_text(p, [(600, 182, 715, 195), (600, 209, 715, 221)])
+if BATHROOMS is None and AREA is None:
+    # unknown figures: remove the whole rooms box and draw a compact box with
+    # only the bedrooms column (icon paths replayed from the template)
+    box = fitz.Rect(432.1, 303.1, 691.4, 359.8)
+    icon_area = fitz.Rect(460, 310, 502, 340)
+    tpl = fitz.open(REF)
+    box_fill = icon_fill = None
+    icon_paths = []
+    for dr in tpl[1].get_drawings():
+        if dr["rect"].contains(icon_area) and dr["rect"].width > 200:
+            box_fill = dr["fill"]
+        elif icon_area.contains(dr["rect"]):
+            icon_paths.append(dr)
+    p.add_redact_annot(box + (-1, -1, 1, 1), fill=False)
+    p.apply_redactions(images=fitz.PDF_REDACT_IMAGE_NONE,
+                       graphics=fitz.PDF_REDACT_LINE_ART_REMOVE_IF_COVERED)
+    sh = p.new_shape()
+    sh.draw_rect(fitz.Rect(432.1, 303.1, 529.9, 359.8))
+    sh.finish(fill=box_fill, color=None)
+    for dr in icon_paths:
+        for it in dr["items"]:
+            if it[0] == "l":
+                sh.draw_line(it[1], it[2])
+            elif it[0] == "c":
+                sh.draw_bezier(it[1], it[2], it[3], it[4])
+            elif it[0] == "re":
+                sh.draw_rect(it[1])
+            elif it[0] == "qu":
+                sh.draw_quad(it[1])
+        sh.finish(fill=dr["fill"], color=None, even_odd=dr.get("even_odd", False),
+                  closePath=dr.get("closePath", False))
+    sh.commit()
+    add_fonts(p)
+    label = [(BEDROOMS + " ", "osb"), ("bedrooms", "osr")]
+    w = sum(FONTS_OBJ[f].text_length(t, 8) for t, f in label)
+    x = 481.0 - w / 2
+    for t, f in label:
+        x = text(p, x, 348.6, t, f, 8, WHITE)
+else:
+    erase_text(p, [(543, 341, 590, 350), (639, 341, 653, 350)])
 add_fonts(p)
 text(p, 603.8, 192.9, CODE, "osb", 11, NAVY)
 text(p, 603.8, 219.0, DISTRICT, "osr", 10, NAVY)
@@ -126,11 +165,12 @@ for label, value in TERMS:
     ty += 26
 if TERMS_NOTE:
     text(p, 603.8, ty - 4, TERMS_NOTE, "osl", 7.5, GREY)
-x = text(p, 544.3, 348.6, BATHROOMS + " ", "osb", 8, WHITE)
-text(p, x, 348.6, "bathrooms", "osr", 8, WHITE)
-# keep "m²" in place: right-align the number to where "209" ended
-num_w = FONTS_OBJ["osb"].text_length(AREA, 8)
-text(p, 652.6 - num_w, 348.6, AREA, "osb", 8, WHITE)
+if BATHROOMS is not None:
+    x = text(p, 544.3, 348.6, BATHROOMS + " ", "osb", 8, WHITE)
+    text(p, x, 348.6, "bathrooms", "osr", 8, WHITE)
+    # keep "m²" in place: right-align the number to where "209" ended
+    num_w = FONTS_OBJ["osb"].text_length(AREA, 8)
+    text(p, 652.6 - num_w, 348.6, AREA, "osb", 8, WHITE)
 
 # 3 - key features
 p = doc[2]
