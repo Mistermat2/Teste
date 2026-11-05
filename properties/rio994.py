@@ -12,8 +12,8 @@ DESCRIPTION = (
     "the façade, with panoramic views of the beach, and three suites."
 )
 FEATURES = [
-    "Beachfront, with panoramic sea views",
-    "Living room opening onto a wide covered balcony",
+    "Beachfront, with views of the sea and Dois Irm\u00e3os",
+    "Living and dining room opening onto a wide covered balcony",
     "3 suites, two with private balconies",
     "Walk-in closet in the master suite",
     "Marble bathrooms with large showers",
@@ -24,12 +24,14 @@ FEATURES = [
     "24-hour concierge",
 ]
 
-COVER_PHOTO = "03"
-FEATURE_PHOTO = "09"
+COVER_PHOTO = "16"
+FEATURE_PHOTO = "19"
 GALLERY = [
-    (5, {45: "01", 46: "15", 47: "14", 48: "02"}),
-    (6, {53: "04", 54: "12", 55: "05", 56: "10"}),
-    (4, {38: "08", 39: "11", 40: "13"}),
+    (5, {45: "21", 46: "03", 47: "17", 48: "09"}),
+    (6, {53: "23", 54: "18", 55: "01", 56: "15"}),
+    (4, {38: "20", 39: "14", 40: "12"}),
+    (6, {53: "22", 54: "08", 55: "04", 56: "02"}),
+    (4, {38: "05", 39: "11", 40: "13"}),
 ]
 # 06 (doorway) and 07 (closet with suitcase and personal items) left out
-FOCUS = {"08": 0.6}
+FOCUS = {"20": 0.5, "05": 0.6}
