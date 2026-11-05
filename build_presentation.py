@@ -24,6 +24,10 @@ CODE = "Rio991"
 TITLE = "Renovated apartment in Ipanema"
 DISTRICT = "Ipanema"
 BEDROOMS, BATHROOMS, AREA = "3", "2", "200"
+# shown under the district on the main-photo slide: (label, value) pairs
+TERMS = [("Available from", "December 26"),
+         ("Monthly rent", "approx. R$ 40,000")]
+TERMS_NOTE = "Electricity not included"
 
 DESCRIPTION = (
     "Located on Rua Visconde de Piraj\u00e1, facing Pra\u00e7a Nossa Senhora da Paz in "
@@ -153,6 +157,12 @@ erase_text(p, [(600, 182, 715, 195), (600, 209, 715, 221),
 add_fonts(p)
 text(p, 603.8, 192.9, CODE, "osb", 11, NAVY)
 text(p, 603.8, 219.0, DISTRICT, "osr", 10, NAVY)
+ty = 243.0
+for label, value in TERMS:
+    text(p, 603.8, ty, label, "osl", 8.5, NAVY)
+    text(p, 603.8, ty + 11, value, "osb", 8.5, NAVY)
+    ty += 26
+text(p, 603.8, ty - 4, TERMS_NOTE, "osl", 7.5, GREY)
 x = text(p, 544.3, 348.6, BATHROOMS + " ", "osb", 8, WHITE)
 text(p, x, 348.6, "bathrooms", "osr", 8, WHITE)
 # keep "m²" in place: right-align the number to where "209" ended
