@@ -20,7 +20,7 @@ GREY = 0x949FB7
 WHITE = 0xFFFFFF
 
 # ---------------------------------------------------------------- content
-CODE = "XXX000"
+CODE = "Rio991"
 TITLE = "Renovated apartment in Ipanema"
 DISTRICT = "Ipanema"
 BEDROOMS, BATHROOMS, AREA = "3", "2", "200"
@@ -201,9 +201,12 @@ CONTACT = {
     "country": "BRA ",
     "phone": "+55 21 98393-0391",
     "photo": "assets/marie-emma.png",
+    "address": ["Av. Atl\u00e2ntica, 4240 - Lj G",
+                "Copacabana, Rio de Janeiro - RJ", "22070-002"],
 }
 p = doc[-1]
-erase_text(p, [(30, 187, 215, 215), (353, 137, 600, 149), (353, 196, 600, 208)])
+erase_text(p, [(30, 187, 215, 215), (353, 137, 600, 149), (353, 196, 600, 208),
+               (353, 254, 600, 279)])
 add_fonts(p)
 RIGHT = 210.0
 for s_, f_, sz, c_, y_ in [(CONTACT["name"], "osb", 12.27, WHITE, 198.6),
@@ -214,6 +217,8 @@ p.insert_image(fitz.Rect(226.5, 148.5, 334.5, 256.5), filename=CONTACT["photo"])
 text(p, 355.0, 147.0, CONTACT["email"], "osl", 10.23, NAVY)
 x = text(p, 355.0, 206.1, CONTACT["country"], "oss", 10.23, NAVY)
 text(p, x, 206.1, CONTACT["phone"], "osl", 10.23, NAVY)
+for i, line in enumerate(CONTACT["address"]):
+    text(p, 355.0, 264.0 + 12 * i, line, "osl", 10.23, NAVY)
 
 doc.subset_fonts()
 doc.set_metadata({"title": f"{CODE} - {TITLE}", "creator": "Latin Exclusive"})
